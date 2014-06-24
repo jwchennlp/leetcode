@@ -10,19 +10,19 @@
 
 其实可以知道,最大和子数组的第一位元素一定为正数(反证法可证明).		
 
-'''
-int maxSubArray(int A[], int n) {
-        int max = Integer.MIN_VALUE;
-        int current  = 0;
-        for(int i=0;i!=n;++i){
-            current += A[i];
-            max = max>current?max:current;
-            if (current<0)
-                current = 0;
-        }
-        return max;
-    }
-'''
+''' c++				
+int maxSubArray(int A[], int n) {		
+        int max = Integer.MIN_VALUE;		
+        int current  = 0;		
+        for(int i=0;i!=n;++i){		
+            current += A[i];		
+            max = max>current?max:current;		
+            if (current<0)		
+                current = 0;		
+        }		
+        return max;		
+    }		
+'''		
 
 代码只需要一遍遍历数组便能求出最优解.实现的核心部分是引入了变量current.我们发现在计算过程中如果current<0,则需要将current置为0.这么做的原因就是上面提到的,最大子数组的第一位一定为正数.如果current为0,则表示数组的某一序列x的元素和小于0,则显然最有数组起始部分不会出现在x中(同样用反证法可证明).
 
@@ -42,34 +42,34 @@ int maxSubArray(int A[], int n) {
 
 实现代码如下:
 
-'''
-int divide(int A[],int low,int high){
-        if(low==high)
-            return A[low];
-        if(low==high-1)
-            return max(A[low]+A[high],max(A[low],A[high]));
-        int middle = (low+high)/2;
-        int lmax = divide(A,low,middle-1);
-        int rmax = divide(A,middle+1,high);
-        int mmax = A[middle];
-        int tmp =mmax;
-        for(int i =middle-1;i>=low;--i){
-            tmp += A[i];
-            if(tmp>mmax)
-                mmax = tmp;
-        }
-        tmp = mmax;
-        for(int i=middle+1;i<=high;++i){
-            tmp += A[i];
-            if(tmp>mmax)
-                mmax = tmp;
-        }
-        return max(mmax,max(rmax,lmax));
-    }
-    int maxSubArray(int A[], int n) {
-        return divide(A,0,n-1);
-    }
-'''
+''' C++			
+int divide(int A[],int low,int high){		
+        if(low==high)		
+            return A[low];		
+        if(low==high-1)		
+            return max(A[low]+A[high],max(A[low],A[high]));			
+        int middle = (low+high)/2;			
+        int lmax = divide(A,low,middle-1);		
+        int rmax = divide(A,middle+1,high);		
+        int mmax = A[middle];		
+        int tmp =mmax;		
+        for(int i =middle-1;i>=low;--i){		
+            tmp += A[i];		
+            if(tmp>mmax)		
+                mmax = tmp;		
+        }		
+        tmp = mmax;		
+        for(int i=middle+1;i<=high;++i){		
+            tmp += A[i];		
+            if(tmp>mmax)		
+                mmax = tmp;		
+        }		
+        return max(mmax,max(rmax,lmax));		
+    }		
+    int maxSubArray(int A[], int n) {		
+        return divide(A,0,n-1);				
+    }			
+'''		
 
 问题求解可以表述为:T(n)=2T(n/2)+o(n),时间复杂度为o(nlogn).	
 
