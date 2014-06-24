@@ -10,7 +10,7 @@
 
 其实可以知道,最大和子数组的第一位元素一定为正数(反证法可证明).		
 
-''' c++				
+'''c++				
 int maxSubArray(int A[], int n) {		
         int max = Integer.MIN_VALUE;		
         int current  = 0;		
@@ -42,7 +42,7 @@ int maxSubArray(int A[], int n) {
 
 实现代码如下:
 
-''' C++			
+'''C++			
 int divide(int A[],int low,int high){		
         if(low==high)		
             return A[low];		
